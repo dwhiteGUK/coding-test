@@ -1,9 +1,32 @@
+import { useEffect, useState } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 
 export default function Home({ data }) {
+  const [userId, setUserId] = useState(null)
+  const [initialData, _] = useState(data)
+  const [albums, setAlbums] = useState(data)
+
+  useEffect(() => {
+    if (!userId) return
+
+    const userRes = async () => {
+      const res = await fetch(`https://jsonplaceholder.typicode.com/albums?userId=${userId}`)
+      const data = await res.json()
+
+      if (userRes.status === 404 && userRes.statusText === 'Not Found') {
+
+      }
+
+      setAlbums(data)
+    }
+
+    userRes()
+
+  }, [userId])
+
   return (
     <div className={styles.container}>
       <Head>
@@ -18,13 +41,17 @@ export default function Home({ data }) {
         </h1>
         {!data && <p><strong>No Albums Found</strong></p>}
 
-        {data && (
-          <ul class="album-list">
-            {data.map(({ id, title }) => (
-              <li key={id}>
+        <button onClick={() => setAlbums(initialData)}>Show All</button>
+
+        {albums && (
+          <ul className={styles['album-list']}>
+            {albums.map(({ id, title, userId }) => (
+              <li key={id} className={styles['list-item']}>
                 <Link href={`/album/${id}`}>
                   <a>{title}</a>
                 </Link>
+
+                <button onClick={() => setUserId(userId)}>User: {userId}</button>
               </li>
             ))}
           </ul>

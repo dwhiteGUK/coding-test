@@ -62,5 +62,16 @@
 }
 
 ul.album-list {
-  margin-top: 50px;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  width: 100%;
+}
+
+ul.album-list li.list-item {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 0;
+  padding: 5px 0;
+  border-bottom: 1px solid #5b5c5e;
 }
