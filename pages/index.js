@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 
 export default function Home({ data }) {
@@ -20,7 +21,11 @@ export default function Home({ data }) {
         {data && (
           <ul class="album-list">
             {data.map(({ id, title }) => (
-              <li key={id}>{title}</li>
+              <li key={id}>
+                <Link href={`/album/${id}`}>
+                  <a>{title}</a>
+                </Link>
+              </li>
             ))}
           </ul>
         )}
@@ -40,7 +45,7 @@ export default function Home({ data }) {
           </span>
         </a>
       </footer>
-    </div >
+    </div>
   )
 }
 
