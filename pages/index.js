@@ -18,9 +18,11 @@ export default function Home({ data }) {
         {!data && <p><strong>No Albums Found</strong></p>}
 
         {data && (
-          <ul class="album-list">
+          <ul>
             {data.map(({ id, title }) => (
-              <li key={id}>{title}</li>
+              <>
+                <li key={id}>{title}</li>
+              </>
             ))}
           </ul>
         )}
